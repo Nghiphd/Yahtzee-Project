@@ -24,6 +24,10 @@ public class Yahtzee
         die3.roll();
         die4.roll();
         die5.roll();
+        Yahtzee man = new Yahtzee ();
+    for (int i = 1; i < 7; i++) {
+	System.out.println (man.scoreUpper(i));
+      }
     }
 
     //rolls all five dice
