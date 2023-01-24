@@ -14,6 +14,7 @@ public class Yahtzee
     Die6 die4 = new Die6();
     Die6 die5 = new Die6();
 
+    int[] scoreUpper = new int[6];
     //constructor & round one
     public Yahtzee() {
         die1.roll();
@@ -56,21 +57,47 @@ public class Yahtzee
 
     //returns the value of all dice
     public String toString() {
-
         return("Dice Values: " + die1.value + " " + die2.value + " " + die3.value + " " + die4.value + " " + die5.value); 
     }
 
     //calculates the occurances of a die number
     private int val(int val) {
         int count = 0;
-        int[] array = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
-        for(int i : array) {
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        for(int i : dice) {
             if(i == val) {
                 count++;
             }
         }
         return count;
     }
+
+    public int scoreUpper(int score) {
+        int scoreNum = 0;
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        try{
+            if(score > 6 || score <= 0) {
+                throw new IllegalArgumentException("Please enter 1-6");
+            }
+            for(int i: dice) {
+                if(i == score) {
+                    scoreNum += score;
+                }
+            }
+        } catch (IllegalArgumentException a) {
+            System.out.println(a.getMessage());
+        }
+        if(scoreNum %score == 0) {
+            try{
+                scoreUpper[score-1] = scoreNum;
+            } catch (ArrayIndexOutOfBoundsException b) {
+            }
+        }
+        return scoreUpper[score-1];
+    }
+    
+    public String getScoreUpper() {
+        return "Score 1: " + scoreUpper[0]+" Score 2: " + scoreUpper[1]+" Score 3: " + scoreUpper[2]+" Score 4: " + scoreUpper[3]+" Score 5: " + scoreUpper[4]+" Score 6: " + scoreUpper[5];
+    }
 }
 
-    
