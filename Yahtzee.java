@@ -15,6 +15,8 @@ public class Yahtzee
     Die6 die5 = new Die6();
 
     int[] scoreUpper = new int[6];
+    private int upperTotal;
+    
     //constructor & round one
     public Yahtzee() {
         die1.roll();
@@ -97,8 +99,11 @@ public class Yahtzee
     }
     
     public String getScoreUpper() {
+        int UpperTotal = scoreUpper[0] + scoreUpper[1]+ scoreUpper[2]+ scoreUpper[3]+ scoreUpper[4]+ scoreUpper[5];
+        this.upperTotal = UpperTotal;
         return String.format(" Score 1: " + scoreUpper[0]+"\n Score 2: " + scoreUpper[1]+"\n Score 3: " + scoreUpper[2]+
-                             "\n Score 4: " + scoreUpper[3]+"\n Score 5: " + scoreUpper[4]+"\n Score 6: " + scoreUpper[5]);
+                             "\n Score 4: " + scoreUpper[3]+"\n Score 5: " + scoreUpper[4]+"\n Score 6: " + scoreUpper[5]+
+                             "\n UpperTotal:" + upperTotal);
     }
 }
 
