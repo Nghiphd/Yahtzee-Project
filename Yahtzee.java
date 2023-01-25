@@ -16,8 +16,9 @@ public class Yahtzee
     private int[] scoreUpper = new int[6];
     private int upperTotal;
     private int[] scoreOfAKind = new int[3];
+    int fullHouse = 0;
 
-    //constructor & round one
+    //constructor & rolls all dice for round one
     public Yahtzee() {
         die1.roll();
         die2.roll();
@@ -26,6 +27,7 @@ public class Yahtzee
         die5.roll();
     }
 
+    //rolls all dice
     public void rollAll() {
         die1.roll();
         die2.roll();
@@ -34,7 +36,7 @@ public class Yahtzee
         die5.roll();
     }
 
-    //rolls a specified by number
+    //Input an array, if value matches switch cases, rolls that die
     public void roll(int[] diceToRoll) {
         for (int i : diceToRoll) {
             switch (i) {
@@ -57,6 +59,7 @@ public class Yahtzee
         }
     }
 
+    //For Yahtzee Testing
     public void setdice(int set) {
         Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
         for (Die6 die : dice) {
@@ -64,7 +67,7 @@ public class Yahtzee
         }
     }
 
-    //returns the amount of occurances of a die number
+    //Returns the number of occurances of a die number
     public String summerize() {
         int[] two = new int[]{ val (1), val (2), val (3), val (4), val (5), val (6) };
         return("1-"+two[0]+"; 2-"+two[1]+"; 3-"+two[2]+"; 4-"+two[3]+"; 5-"+two[4]+"; 6-"+two[5]+";");        
@@ -88,6 +91,10 @@ public class Yahtzee
         return count;
     }
 
+    /** stores scores for upper section into scoreUpper[]
+     * checks for already initalized indexes of scoreUpper
+     * checks for ArrayIndexOutOfBoundsException for 1 < score < 6
+     */
     public int scoreUpper(int score) {
         int scoreNum = 0;
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
@@ -112,11 +119,18 @@ public class Yahtzee
         return scoreNum;
     }
 
+    /** get all upper section scores for scoreUpper[]
+     * intilize all leftover scoreUpper[], that hasn't been initalized in scoreUpper(int score) (consider removing)
+     * adds bonus 35 for an Upper score over 63
+     * stores total into upperTotal
+     */
     public String getScoreUpper() {
         for (int i = 1; i < 7; i++) {
             scoreUpper(i);
         }
-        int UpperTotal = scoreUpper[0] + scoreUpper[1]+ scoreUpper[2]+ scoreUpper[3]+ scoreUpper[4]+ scoreUpper[5];
+        int UpperTotal = scoreUpper[0] + scoreUpper[1]+ scoreUpper[2]+
+            scoreUpper[3]+ scoreUpper[4]+ scoreUpper[5];
+
         this.upperTotal = UpperTotal;
         if(upperTotal > 63) {
             upperTotal += 35;
@@ -126,6 +140,12 @@ public class Yahtzee
             ", UpperTotal:" + upperTotal);
     }
 
+    /** calculates 3,4, & 5 (yahtzee) of a kind
+     * Stores scores into scoreOfAKind[]
+     * checks for already initalized scoreOfAKind indexes
+     * gives bonus yahtzee score ONCE
+     * checks for ArrayIndexOutOfBoundsException for 3 < type < 5
+     */
     public int scoreOfAKind(int type) {
         int[] counts = new int[6];
         int score = 0;
@@ -160,6 +180,19 @@ public class Yahtzee
             System.out.println("Error: " + g.getMessage());
         }
         return 0;
+    }
+
+    public int fullHouse() {
+        int[] counts = new int[6];
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        for (int i : dice) {
+            counts[i - 1]++;
+        }
+        for (int i : counts) {
+            
+        }
+        fullHouse = 25;
+        return fullHouse;
     }
 }
 
