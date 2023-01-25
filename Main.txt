@@ -11,21 +11,20 @@ public class Main
     boolean FullHouse = false;
     int fullHouse = 0;
     int[] counts = new int[6];
-    int[] dice = new int[]{ 3, 3, 3, 2, 2 };
-
+    int[] dice = new int[]{ 1, 1, 1, 6, 6 };
   for (int i:dice)
       {
 	counts[i - 1]++;
       }
-	for (int j = 0; j < counts.length; j++)
-	  {
-	    for(int i = 0; i < counts.length; i++){
-	        if(counts[i] >= counts[j]+1) {
-	            FullHouse = true;
-	            fullHouse = 25;
-	        }
-	    }
-	    return fullHouse;
-	  }
-  return 0;
+   for(int j = 0; j < counts.length; j++) {
+       for(int a = 0; a < counts.length; a++){
+           if(counts[j] == 3 && counts[a] == 2) {
+               FullHouse = true;
+               fullHouse = 25;
+               return fullHouse;
+           }
+       }
+   }
+   return 0;
   }
+}
