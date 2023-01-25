@@ -142,6 +142,7 @@ public class Yahtzee
                         score += 100;
                     }
                 }
+                return scoreOfAKind[type-3];
             }
             for (int i : dice) {
                 counts[i - 1]++;
