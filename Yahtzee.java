@@ -188,11 +188,16 @@ public class Yahtzee
         for (int i : dice) {
             counts[i - 1]++;
         }
-        for (int i : counts) {
-            
+        for(int j: counts) {
+         for(int a: counts) {
+           if(j == 3 && a == 2) {
+               FullHouse = true;
+               fullHouse = 25;
+               return fullHouse;
+             }
+           }
         }
-        fullHouse = 25;
-        return fullHouse;
+   return 0;
     }
 }
 
