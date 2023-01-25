@@ -1,0 +1,31 @@
+public class Main
+{
+  public static void main (String[]args)
+  {
+    Main man = new Main ();
+      System.out.println (man.fullHouse ());
+  }
+
+  public int fullHouse ()
+  {
+    boolean FullHouse = false;
+    int fullHouse = 0;
+    int[] counts = new int[6];
+    int[] dice = new int[]{ 3, 3, 3, 2, 2 };
+
+  for (int i:dice)
+      {
+	counts[i - 1]++;
+      }
+	for (int j = 0; j < counts.length; j++)
+	  {
+	    for(int i = 0; i < counts.length; i++){
+	        if(counts[i] >= counts[j]+1) {
+	            FullHouse = true;
+	            fullHouse = 25;
+	        }
+	    }
+	    return fullHouse;
+	  }
+  return 0;
+  }
