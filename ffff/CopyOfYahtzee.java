@@ -1,12 +1,14 @@
+package ffff;
+
 import java.util.Map;
 
 /**
- * Write a description of class Yahtzee here.
+ * Write a description of class CopyOfYahtzee here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Yahtzee
+public class CopyOfYahtzee
 {
     Die6 die1 = new Die6();
     Die6 die2 = new Die6();
@@ -16,14 +18,15 @@ public class Yahtzee
     private int[] scoreUpper = new int[6];
     private int upperTotal;
     private int[] scoreOfAKind = new int[3];
-
+    public int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
     //constructor & round one
-    public Yahtzee() {
+    public CopyOfYahtzee() {
         die1.roll();
         die2.roll();
         die3.roll();
         die4.roll();
         die5.roll();
+
     }
 
     public void rollAll() {
@@ -56,11 +59,11 @@ public class Yahtzee
             }
         }
     }
-
+    
     public void setdice(int set) {
-        Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
-        for (Die6 die : dice) {
-            die.value = set;
+        
+        for(int i = 0; i < dice.length; i++) {
+            dice[i] = set;
         }
     }
 
@@ -79,7 +82,7 @@ public class Yahtzee
     //calculates the occurances of a die number
     private int val(int val) {
         int count = 0;
-        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        
         for(int i : dice) {
             if(i == val) {
                 count++;
@@ -90,7 +93,7 @@ public class Yahtzee
 
     public int scoreUpper(int score) {
         int scoreNum = 0;
-        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        
         try{
             if(score > 6 || score <= 0) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 1-6");
@@ -129,19 +132,16 @@ public class Yahtzee
     public int scoreOfAKind(int type) {
         int[] counts = new int[6];
         int score = 0;
-        boolean yahtzeeBonus = false;
-        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        
         try{
             if(type > 5 || type < 3) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 3-5");
             }
             if (scoreOfAKind[type-3] != 0) {
-                if(type == 5) {
-                    if(!yahtzeeBonus) {
-                        yahtzeeBonus = true;
-                        score += 100;
-                    }
+                if(scoreOfAKind[type-3] == scoreOfAKind[2] ) {
+                    score += 100;
                 }
+                return scoreOfAKind[type-3];
             }
             for (int i : dice) {
                 counts[i - 1]++;

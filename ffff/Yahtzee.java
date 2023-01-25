@@ -1,3 +1,5 @@
+package ffff;
+
 import java.util.Map;
 
 /**
@@ -56,11 +58,11 @@ public class Yahtzee
             }
         }
     }
-
+    
     public void setdice(int set) {
-        Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
-        for (Die6 die : dice) {
-            die.value = set;
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        for(int i = 0; i < dice.length; i++) {
+            dice[i] = set;
         }
     }
 
@@ -129,19 +131,16 @@ public class Yahtzee
     public int scoreOfAKind(int type) {
         int[] counts = new int[6];
         int score = 0;
-        boolean yahtzeeBonus = false;
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
         try{
             if(type > 5 || type < 3) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 3-5");
             }
             if (scoreOfAKind[type-3] != 0) {
-                if(type == 5) {
-                    if(!yahtzeeBonus) {
-                        yahtzeeBonus = true;
-                        score += 100;
-                    }
+                if(scoreOfAKind[type-3] == scoreOfAKind[2] ) {
+                    score += 100;
                 }
+                return scoreOfAKind[type-3];
             }
             for (int i : dice) {
                 counts[i - 1]++;
