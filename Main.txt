@@ -27,4 +27,34 @@ public class Main
    }
    return 0;
   }
+  
+  public int scoreStraight(int set) {
+      int[] count = new int[6];
+      int[] straight = new int[2];
+      int[] dice = new int[]{ 1, 2, 3, 4, 6 };
+      
+      for (int i:dice)
+      {
+	count[i - 1]++;
+      }
+      
+      switch(set){
+          case 3:
+              for(int j: count) {
+                  for(int a: count) {
+                      for(int b: count) {
+                          if(j == b + 1 && a+1 == b) {
+                              straight[set-3] = 30;
+                              return straight[set-3];
+                          }
+                      }
+                  }
+              }
+              break;
+          case 4:
+              
+      }
+      return 0;
+  }
+}
 }
