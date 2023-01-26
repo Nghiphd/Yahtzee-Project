@@ -1,60 +1,49 @@
 public class Main
 {
+    private int[] straight = new int[2];
   public static void main (String[]args)
   {
     Main man = new Main ();
-      System.out.println (man.fullHouse ());
+      System.out.println (man.straight (5));
   }
 
-  public int fullHouse ()
-  {
-    boolean FullHouse = false;
-    int fullHouse = 0;
-    int[] counts = new int[6];
-    int[] dice = new int[]{ 1, 1, 1, 6, 6 };
-  for (int i:dice)
-      {
-	counts[i - 1]++;
-      }
-   for(int j: counts) {
-       for(int a: counts) {
-           if(j == 3 && a == 2) {
-               FullHouse = true;
-               fullHouse = 25;
-               return fullHouse;
-           }
-       }
-   }
-   return 0;
-  }
-  
-  public int scoreStraight(int set) {
-      int[] count = new int[6];
-      int[] straight = new int[2];
-      int[] dice = new int[]{ 1, 2, 3, 4, 6 };
-      
-      for (int i:dice)
-      {
-	count[i - 1]++;
-      }
-      
-      switch(set){
-          case 3:
-              for(int j: count) {
-                  for(int a: count) {
-                      for(int b: count) {
-                          if(j == b + 1 && a+1 == b) {
-                              straight[set-3] = 30;
-                              return straight[set-3];
-                          }
-                      }
-                  }
-              }
-              break;
-          case 4:
-              
-      }
-      return 0;
-  }
-}
+	
+	 public int straight(int set) {
+        int[] dice = new int[]{2,2,3,4,5};
+        int[] count = new int[6];
+        int NUM = 0;
+        try{
+            if(set > 5 || set < 4) {
+                throw new ArrayIndexOutOfBoundsException("Please enter 4-5");
+            }
+            for(int i : dice){
+                count[i-1]++;
+            }
+            for(int j: count){
+                if(j > 0) {
+                    j = j+1;
+                }
+            }
+            for(int a: count) {
+                for(int b: count) {
+                    if(a+1 == b) {
+                        NUM++;
+                    }
+                }
+            }
+                
+            if(NUM >= set-1) {
+                if(set == 4) {
+                    straight[0] = 30;
+                    return straight[0];
+                } else {
+                    straight[1] = 40;
+                    return straight[1];
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException k) {
+            System.out.println("Error: " + k.getMessage());
+        }
+        return 0;
+	 }
 }
