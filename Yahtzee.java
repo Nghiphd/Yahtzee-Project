@@ -16,7 +16,9 @@ public class Yahtzee
     private int[] scoreUpper = new int[6];
     private int upperTotal;
     private int[] scoreOfAKind = new int[3];
-    int fullHouse = 0;
+    private int fullHouse = 0;
+    private int NUM_DIE = 6;
+    private int[] straight = new int[2];
 
     //constructor & rolls all dice for round one
     public Yahtzee() {
@@ -29,11 +31,11 @@ public class Yahtzee
 
     //rolls all dice
     public void rollAll() {
-        die1.roll();
-        die2.roll();
-        die3.roll();
-        die4.roll();
-        die5.roll();
+        Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
+
+        for (Die6 die : dice) {
+            die.roll();
+        }
     }
 
     //Input an array, if value matches switch cases, rolls that die
@@ -62,6 +64,7 @@ public class Yahtzee
     //For Yahtzee Testing
     public void setdice(int set) {
         Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
+
         for (Die6 die : dice) {
             die.value = set;
         }
@@ -70,6 +73,7 @@ public class Yahtzee
     //Returns the number of occurances of a die number
     public String summerize() {
         int[] two = new int[]{ val (1), val (2), val (3), val (4), val (5), val (6) };
+
         return("1-"+two[0]+"; 2-"+two[1]+"; 3-"+two[2]+"; 4-"+two[3]+"; 5-"+two[4]+"; 6-"+two[5]+";");        
 
     }
@@ -83,6 +87,7 @@ public class Yahtzee
     private int val(int val) {
         int count = 0;
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+
         for(int i : dice) {
             if(i == val) {
                 count++;
@@ -125,7 +130,7 @@ public class Yahtzee
      * stores total into upperTotal
      */
     public String getScoreUpper() {
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i <= NUM_DIE; i++) {
             scoreUpper(i);
         }
         int UpperTotal = scoreUpper[0] + scoreUpper[1]+ scoreUpper[2]+
@@ -155,6 +160,7 @@ public class Yahtzee
             if(type > 5 || type < 3) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 3-5");
             }
+
             if (scoreOfAKind[type-3] != 0) {
                 if(type == 5) {
                     if(!yahtzeeBonus) {
@@ -164,11 +170,13 @@ public class Yahtzee
                 }
                 return scoreOfAKind[type-3];
             }
+
             for (int i : dice) {
                 counts[i - 1]++;
             }
+
             for (int i : counts) {
-                if (i >= type) {
+                if (i == type) {
                     for (int j : dice) {
                         score += j;
                     }
@@ -189,15 +197,43 @@ public class Yahtzee
             counts[i - 1]++;
         }
         for(int j: counts) {
-         for(int a: counts) {
-           if(j == 3 && a == 2) {
-               FullHouse = true;
-               fullHouse = 25;
-               return fullHouse;
-             }
-           }
+            for(int a: counts) {
+                if(j == 3 && a == 2) {
+                    fullHouse = 25;
+                    return fullHouse;
+                }
+            }
         }
-   return 0;
+        return fullHouse;
+    }
+
+    public int straight(int set) {
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        int count = 0;
+        try{
+            if(set > 5 || set < 4) {
+                throw new ArrayIndexOutOfBoundsException("Please enter 4-5");
+            }
+            for(int i: dice) {
+                for(int j: dice) {
+                    if( i+1 == j) {
+                        count++;
+                    }
+                }
+            }
+            if(count >= set-1) {
+                if(set == 4) {
+                    straight[0] = 30;
+                    return straight[0];
+                } else {
+                    straight[1] = 40;
+                    return straight[1];
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException k) {
+            System.out.println("Error: " + k.getMessage());
+        }
+        return 0;
     }
 }
 
