@@ -21,7 +21,7 @@ public class Yahtzee
     private int[] straight = new int[2];
     private int lowerTotal;
     private int grandTotal;
-
+    private int Chance = 0;
     //constructor & rolls all dice for round one
     public Yahtzee() {
         die1.roll();
@@ -280,6 +280,16 @@ public class Yahtzee
         //if conditions are not met returns 0
         return 0;
     }
+    
+    //Calculates and gets Chance
+    public int getChance() {
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        for(int i: dice) {
+            Chance += i;
+        }
+        return Chance;
+    }
+    
     //gets values from scoreOfAKind[] array
     public String getScoreOfAKind() {
         return("3 of a kind: " + scoreOfAKind[0] + ", 4 of a kind: " + scoreOfAKind[1] + ", Yahtzee: " + scoreOfAKind[2]);
@@ -294,7 +304,7 @@ public class Yahtzee
     }
     //calculates and gets LowerTotal
     public int getLowerTotal(){
-        int LowerTotal = scoreOfAKind[0] + scoreOfAKind[1] + scoreOfAKind[2] + fullHouse + straight[0] + straight[1];
+        int LowerTotal = scoreOfAKind[0] + scoreOfAKind[1] + scoreOfAKind[2] + fullHouse + straight[0] + straight[1] + Chance;
         this.lowerTotal = LowerTotal;
         return lowerTotal;
     }
