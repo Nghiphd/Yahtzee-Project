@@ -1,4 +1,5 @@
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Write a description of class Yahtzee here.
@@ -8,6 +9,7 @@ import java.util.Map;
  */
 public class Yahtzee
 {
+    Scanner scanner = new Scanner(System.in);
     Die6 die1 = new Die6();
     Die6 die2 = new Die6();
     Die6 die3 = new Die6();
@@ -30,7 +32,29 @@ public class Yahtzee
         die4.roll();
         die5.roll();
     }
+    
+    public void getDice() {
+        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        System.out.print("Dice 1: " + dice[0] + " Dice 2: " + dice[1] +" Dice 3: " + dice[2] +" Dice 4: " + dice[4] +" Dice 5: " + dice[4] );
+    }
+    
+    public static void main(String[] args) {
+        Yahtzee yahtzee = new Yahtzee();
+        yahtzee.runEventLoop();
+    }
 
+    public void runEventLoop() {
+        boolean shouldContinue = true;
+        while(shouldContinue) {
+           getDice();
+           System.out.println("--Input 0 to quit\n");
+           int input = scanner.nextInt();
+           System.out.println(input);
+           if(input == 0) {
+               shouldContinue = false;
+           }
+        }
+    }
     //rolls all dice
     public void rollAll() {
         Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
