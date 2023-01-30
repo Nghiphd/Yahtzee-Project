@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 /**
  * Write a description of class Yahtzee here.
@@ -24,6 +25,7 @@ public class Yahtzee
     private int lowerTotal;
     private int grandTotal;
     private int Chance = 0;
+    private String input;
     //constructor & rolls all dice for round one
     public Yahtzee() {
         die1.roll();
@@ -32,12 +34,7 @@ public class Yahtzee
         die4.roll();
         die5.roll();
     }
-    
-    public void getDice() {
-        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
-        System.out.print("Dice 1: " + dice[0] + " Dice 2: " + dice[1] +" Dice 3: " + dice[2] +" Dice 4: " + dice[4] +" Dice 5: " + dice[4] );
-    }
-    
+
     public static void main(String[] args) {
         Yahtzee yahtzee = new Yahtzee();
         yahtzee.runEventLoop();
@@ -46,13 +43,27 @@ public class Yahtzee
     public void runEventLoop() {
         boolean shouldContinue = true;
         while(shouldContinue) {
-           getDice();
-           System.out.println("--Input 0 to quit\n");
-           int input = scanner.nextInt();
-           System.out.println(input);
-           if(input == 0) {
-               shouldContinue = false;
-           }
+            System.out.print(toString());
+            System.out.println("\n0 - quit\nroll - roll a die  roll5 - roll all dice\n1 - Uppersection  2 - Lowersection  3 - getscores");
+
+            input = scanner.next();
+            System.out.println(input);
+
+            if(input.equals("roll5")) {
+                rollAll();
+            }
+
+            if(input.equals("roll")) {
+                roll(new int[]{1,2});
+            }
+
+            if(input.equals("1")) {
+
+            }
+
+            if(input.equals("0")){
+                shouldContinue = false;
+            }
         }
     }
     //rolls all dice
@@ -304,7 +315,7 @@ public class Yahtzee
         //if conditions are not met returns 0
         return 0;
     }
-    
+
     //Calculates and gets Chance
     public int getChance() {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
@@ -313,7 +324,7 @@ public class Yahtzee
         }
         return Chance;
     }
-    
+
     //gets values from scoreOfAKind[] array
     public String getScoreOfAKind() {
         return("3 of a kind: " + scoreOfAKind[0] + ", 4 of a kind: " + scoreOfAKind[1] + ", Yahtzee: " + scoreOfAKind[2]);
