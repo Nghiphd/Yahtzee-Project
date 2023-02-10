@@ -44,17 +44,24 @@ public class Yahtzee
         boolean shouldContinue = true;
         while(shouldContinue) {
             System.out.print(toString());
-            System.out.println("\n0 - quit\nroll - roll a die  roll5 - roll all dice\n1 - Uppersection  2 - Lowersection  3 - getscores");
+            System.out.println("\n0 - quit \nroll - roll a die  roll5 - roll all dice\n1 - Uppersection  2 - Lowersection  3 - getscores");
 
             input = scanner.next();
-            System.out.println(input);
+            System.out.println(input+"\n");
 
             if(input.equals("roll5")) {
                 rollAll();
             }
 
             if(input.equals("roll")) {
-                roll(new int[]{1,2});
+                Scanner Num = new Scanner(System.in);
+                Num.nextInt();
+                int[] rollDieNum = new int[5];
+                if(Num.equals("%d")) {
+                    int i = Integer.parseInt(input);
+                    rollDieNum[i] = i;
+                    System.out.println(i);
+                }
             }
 
             if(input.equals("1")) {
