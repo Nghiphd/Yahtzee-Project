@@ -21,13 +21,19 @@ public class Yahtzee
     private int[] scoreOfAKind = new int[3];
     private int fullHouse;
     private int NUM_DIE = 6;
-    private int[] straight = new int[2];
+    private final int[] straight = new int[2];
     private int lowerTotal;
     private int grandTotal;
     private int Chance = 0;
     private String input;
+    private static final int NUM_DICE = 5;
+    private static final int NUM_ROUNDS = 13;
+    private int round;
+    private int score;
     //constructor & rolls all dice for round one
     public Yahtzee() {
+        round = 1;
+        score = 0;
         die1.roll();
         die2.roll();
         die3.roll();
@@ -37,16 +43,19 @@ public class Yahtzee
 
     public static void main(String[] args) {
         Yahtzee yahtzee = new Yahtzee();
-        yahtzee.runEventLoop();
+        yahtzee.play();
     }
 
-    public void runEventLoop() {
+    public void play() {
         boolean shouldContinue = true;
-        while(shouldContinue) {
+        boolean scoreMarked = false;;
+        while(round < NUM_ROUNDS) {
             System.out.print(toString());
-            System.out.println("\n0 - quit \nroll - roll a die  roll5 - roll all dice\n1 - Uppersection  2 - Lowersection  3 - getscores");
+            System.out.println("\n-0 - quit");
+            System.out.println("--roll - roll a die  roll5 - roll all dice");
+            System.out.println("1 - Uppersection  2 - Lowersection  3 - getscores\n");
 
-            input = scanner.next();
+            input = scanner.nextLine();
             System.out.println(input+"\n");
 
             if(input.equals("roll5")) {
@@ -65,11 +74,51 @@ public class Yahtzee
             }
 
             if(input.equals("1")) {
+                if (scoreMarked) {
+                    System.out.println("Score already marked in this turn.");
+                } else {
+                    System.out.print("Select a category (1-6): ");
+                    int category = scanner.nextInt();
+                    scanner.nextLine();
+                    scoreUpper(category);
+                    System.out.println(scoreUpper[category-1]+"\n");
+                    scoreMarked = true;
+                }
+            }
+
+            if(input.equals("2")) {
+                if (scoreMarked) {
+                    System.out.println("Score already marked in this turn.");
+                } else {
+
+                    scoreMarked = true;
+                }
 
             }
 
+            if(input.equals("3")) {
+                System.out.println("1 - Upper Score");
+                System.out.println("2 - Lower Score");
+                System.out.println("3 - Chance");
+                int type = scanner.nextInt();
+                scanner.nextLine();
+                switch(type) {
+                    case 1:
+                        int index = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println(scoreUpper[index-1]+"\n");
+                        break;
+                    case 2:
+                        int indexes = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+
             if(input.equals("0")){
-                shouldContinue = false;
+                break;
             }
         }
     }
@@ -287,6 +336,10 @@ public class Yahtzee
             if(set > 5 || set < 4) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 4-5");
             }
+            //if there's a stored value in the array stops the calculations
+            if (straight[set-4] != 0) {
+                return straight[set-4];
+            }
             //iterates over dice[]
             for(int i : dice){
                 //checks for occurances of a die number that's more than 0
@@ -297,10 +350,13 @@ public class Yahtzee
             }
             //iterates over count twice
             for(int a: count) {
-                for(int b: count) {
-                    //counts number of sequences, at least 3 is needed, 4 is max
-                    if(a+1 == b) {
-                        NUM++;
+                if(a != 0) {
+                    for(int b: count) {
+                        //counts number of sequences, at least 3 is needed, 4 is max
+                        if(a+1 == b) {
+                            NUM++;
+                        }
+
                     }
                 }
             }
@@ -326,6 +382,9 @@ public class Yahtzee
     //Calculates and gets Chance
     public int getChance() {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        if(Chance != 0) {
+            return Chance;
+        }
         for(int i: dice) {
             Chance += i;
         }
@@ -351,7 +410,7 @@ public class Yahtzee
         return lowerTotal;
     }
     //calculates and gets Grand Total
-    public int GrandTotal() {
+    public int getGrandTotal() {
         grandTotal = upperTotal + lowerTotal;
         return grandTotal;
     }
