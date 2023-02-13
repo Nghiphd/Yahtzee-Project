@@ -49,19 +49,19 @@ public class Yahtzee
     public void play() {
         boolean shouldContinue = true;
         boolean scoreMarked = false;;
-        while(round < NUM_ROUNDS) {
-            System.out.print(toString());
-            System.out.println("\n-0 - quit");
-            System.out.println("--roll - roll a die  roll5 - roll all dice");
-            System.out.println("1 - Uppersection  2 - Lowersection  3 - getscores\n");
+        while(round <= NUM_ROUNDS) {
+            System.out.print("[ "+toString()+" ]");
+            System.out.println("\n{ - 0 - quit }");
+            System.out.println("{ -- roll - rolls specified dice  rollAll - rolls all dice }");
+            System.out.println("{ --- 1 - Uppersection  2 - Lowersection  3 - getscores 4 - Next Round }\n");
 
             input = scanner.nextLine();
-            System.out.println(input+"\n");
 
-            if(input.equals("roll5")) {
+            if(input.equals("rollAll")) {
                 rollAll();
             }
-
+            
+            //Work In progress(Not Finished)
             if(input.equals("roll")) {
                 Scanner Num = new Scanner(System.in);
                 Num.nextInt();
@@ -75,7 +75,7 @@ public class Yahtzee
 
             if(input.equals("1")) {
                 if (scoreMarked) {
-                    System.out.println("Score already marked in this turn.");
+                    System.out.println("(-Score already marked in this turn.)");
                 } else {
                     System.out.print("Select a category (1-6): ");
                     int category = scanner.nextInt();
@@ -88,7 +88,7 @@ public class Yahtzee
 
             if(input.equals("2")) {
                 if (scoreMarked) {
-                    System.out.println("Score already marked in this turn.");
+                    System.out.println("-Score already marked in this turn.");
                 } else {
 
                     scoreMarked = true;
@@ -99,7 +99,7 @@ public class Yahtzee
             if(input.equals("3")) {
                 System.out.println("1 - Upper Score");
                 System.out.println("2 - Lower Score");
-                System.out.println("3 - Chance");
+                System.out.println("3 - Totals");
                 int type = scanner.nextInt();
                 scanner.nextLine();
                 switch(type) {
@@ -109,12 +109,28 @@ public class Yahtzee
                         System.out.println(scoreUpper[index-1]+"\n");
                         break;
                     case 2:
-                        int indexes = scanner.nextInt();
+                        System.out.println("1 - Score of a kind(3-5)");
+                        System.out.println("2 - Full House");
+                        System.out.println("3 - Score for Straights(3-4)");
+                        System.out.println("4 - Chance");
+                        int Category = scanner.nextInt();
                         scanner.nextLine();
+                        
+                        
+                        
                         break;
                     case 3:
+                        System.out.println("1 - Upper Total");
+                        System.out.println("2 - Lower Total");
+                        System.out.println("3 - Grand Total");
                         break;
                 }
+            }
+            
+            if(input.equals("4")) {
+                round++;
+                System.out.println("Round: "+round+"\n");
+                scoreMarked = false;
             }
 
             if(input.equals("0")){
@@ -192,7 +208,7 @@ public class Yahtzee
     }
 
     /** stores scores for upper section into scoreUpper[]
-     * checks for already initalized indexes of scoreUpper
+     * checks for already indexes of scoreUpper
      * checks for ArrayIndexOutOfBoundsException for 1 > score > 6
      */
     public int scoreUpper(int score) {
