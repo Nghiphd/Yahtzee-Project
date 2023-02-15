@@ -126,6 +126,15 @@ public class Yahtzee
                     System.out.println("Round: "+round);
                     scoreMarked = false;
                     break;
+                    
+                case ¨5¨ {
+                    System.out.println("Developer Options");
+                    System.out.println("Please Enter Passcode")
+                    scanner.nextLine();
+                    if(input.equals("WallfleHouse")) {
+                        System.out.println("Access Granted");
+                    }
+                }
             }
 
             if(input.equals("0")){
