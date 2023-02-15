@@ -67,6 +67,10 @@ public class Yahtzee
                     String stringToSplit = scanner.nextLine();
                     String[] split = stringToSplit.split(" ");
                     int[] array = new int[split.length];
+                    for(int i = 0; i < array.length; i++) {
+                        array[i] = Integer.parseInt(split[i]);
+                    }
+                    roll(array);
                     
                     break;
                 //Done    
@@ -75,9 +79,9 @@ public class Yahtzee
                         System.out.println("(-Score already marked in this turn.)");
                     } else {
                         System.out.print("Select a category (1-6): ");
-                        int category = scanner.nextInt();
+                        int categoryUpper = scanner.nextInt();
                         scanner.nextLine();
-                        scoreUpper(category);
+                        scoreUpper(categoryUpper);
                         scoreMarked = true;
                     }
                     break;
@@ -86,7 +90,7 @@ public class Yahtzee
                     if (scoreMarked) {
                         System.out.println("(-Score already marked in this turn.)");
                     } else {
-                        int Cateogory = scanner.nextInt();
+                        int cateogoryLower = scanner.nextInt();
                         scanner.nextLine();
                         
                         scoreMarked = true;
