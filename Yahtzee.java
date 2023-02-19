@@ -27,12 +27,12 @@ public class Yahtzee
     private int Chance = 0;
     private String input;
     private static final int NUM_DICE = 5;
-    private static final int NUM_ROUNDS = 13;
-    private int round;
+    private static final int NUM_TURNS = 13;
+    private int turn;
     private int score;
-    //constructor & rolls all dice for round one
+    //constructor & rolls all dice for turn one
     public Yahtzee() {
-        round = 1;
+        turn = 1;
         score = 0;
         rollAll();
     }
@@ -43,11 +43,12 @@ public class Yahtzee
     }
 
     public void play() {
+        int rollCount = 0;
         boolean rolled = false;
         boolean scoreMarked = false;;
-        while(round <= NUM_ROUNDS) {
+        while(turn <= NUM_TURNS) {
             System.out.print("\n[ "+toString()+" ]");
-            System.out.println("\n{ - 0 - quit  4 - Next Round }");
+            System.out.println("\n{ - 0 - quit  4 - Next turn }");
             System.out.println("{ -- roll - rolls specified dice  rollAll - rolls all dice }");
             System.out.println("{ --- 1 - Mark Uppersection  2 - Mark Lowersection  3 - getscores }\n");
             input = scanner.nextLine();
@@ -56,7 +57,7 @@ public class Yahtzee
                 case "rollAll":
                     if(!rolled) {
                         rollAll();
-                        rolled = true;
+                        rollCount++;
                     } else {
                         System.out.println("You have already rolled");
                     }
@@ -72,7 +73,7 @@ public class Yahtzee
                             array[i] = Integer.parseInt(split[i]);
                         }
                         roll(array);
-                        rolled = true;
+                        rollCount++;
                     } else {
                         System.out.println("You have already rolled");
                     }
@@ -171,14 +172,18 @@ public class Yahtzee
                     if(!rolled) {
                         System.out.println("You are required to roll");
                     } else {
-                        round++;
-                        System.out.println("Round: "+round);
+                        turn++;
+                        System.out.println("turn: "+turn);
                         scoreMarked = false;
                         rolled = false;
                     }
                     break;
             }
-
+            
+            if(rollCount >= 3) {
+                rolled = true;
+            }
+            
             if(input.equals("0")){
                 break;
             }
@@ -309,7 +314,7 @@ public class Yahtzee
             //iterates over counts[]
             for (int i : counts) {
                 //if counts matches _ofAKind adds up all dice values and stores it into scores
-                if(type == 5) {
+                if(i == 5 && type == 5) {
                     scoreOfAKind[type-3] = 50;
                     return scoreOfAKind[type-3];
                 } else if (i >= type) {
