@@ -48,9 +48,9 @@ public class Yahtzee
         boolean scoreMarked = false;;
         while(turn <= NUM_TURNS) {
             System.out.print("\n[ "+toString()+" ]");
-            System.out.println("\n{ - 0 - quit  4 - Next turn }");
-            System.out.println("{ -- roll - rolls specified dice  rollAll - rolls all dice }");
-            System.out.println("{ --- 1 - Mark Uppersection  2 - Mark Lowersection  3 - getscores }\n");
+            System.out.println("\n{ - 0 - quit | 4 - Next turn }");
+            System.out.println("{ -- roll - rolls specified dice | rollAll - rolls all dice }");
+            System.out.println("{ --- 1 - Mark Uppersection | 2 - Mark Lowersection | 3 - getscores }\n");
             input = scanner.nextLine();
 
             switch(input) {
@@ -59,7 +59,7 @@ public class Yahtzee
                         rollAll();
                         rollCount++;
                     } else {
-                        System.out.println("You have already rolled");
+                        System.out.println("No more rolls this turn");
                     }
                     break;
 
@@ -335,7 +335,7 @@ public class Yahtzee
     }
 
     /**calulates fullHouse in LowerSection
-     * fullHouse requires 3 of the same die number and a pair(2)
+     * fullHouse requires 3 of the same die number and a pair
      */
     public int fullHouse() {
         int[] counts = new int[6];
