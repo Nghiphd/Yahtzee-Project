@@ -27,12 +27,12 @@ public class Yahtzee
     private int Chance = 0;
     private String input;
     private static final int NUM_DICE = 5;
-    private static final int NUM_TURNS = 13;
+    private static final int NUM_ROUNDS = 13;
     private int turn;
     private int score;
     //constructor & rolls all dice for turn one
     public Yahtzee() {
-        turn = 1;
+        round = 1;
         score = 0;
         rollAll();
     }
@@ -43,29 +43,30 @@ public class Yahtzee
     }
 
     public void play() {
-        int rollCount = 0;
+        int turn = 0;
         boolean rolled = false;
         boolean scoreMarked = false;;
-        while(turn <= NUM_TURNS) {
+        while(round <= NUM_ROUNDS) {
             System.out.print("\n[ "+toString()+" ]");
-            System.out.println("\n{ - 0 - quit | 4 - Next turn }");
-            System.out.println("{ -- roll - rolls specified dice | rollAll - rolls all dice }");
-            System.out.println("{ --- 1 - Mark Uppersection | 2 - Mark Lowersection | 3 - getscores }\n");
+            System.out.println("\n{ - 0 - Quit | 4 - Next Turn }");
+            System.out.println("{ -- roll - Rolls Specified Dice | rollAll - Rolls All Dice }");
+            System.out.println("{ --- 1 - Mark Uppersection | 2 - Mark Lowersection | 3 - Getscores }\n");
             input = scanner.nextLine();
 
             switch(input) {
                 case "rollAll":
                     if(!rolled) {
                         rollAll();
-                        rollCount++;
+                        turn++;
+                        System.out.println("Turn:"+turn);
                     } else {
-                        System.out.println("No more rolls this turn");
+                        System.out.println("No More Rolls This Round");
                     }
                     break;
 
                 case "roll":
                     if(!rolled) {
-                        System.out.println("Enter the die you wish to roll separated by a space");
+                        System.out.println("Enter The Die You Wish To Roll Separated By a Space");
                         String stringToSplit = scanner.nextLine();
                         String[] split = stringToSplit.split(" ");
                         int[] array = new int[split.length];
@@ -73,16 +74,17 @@ public class Yahtzee
                             array[i] = Integer.parseInt(split[i]);
                         }
                         roll(array);
-                        rollCount++;
+                        turn++;
+                        System.out.println("Turn:"+turn);
                     } else {
-                        System.out.println("You have already rolled");
+                        System.out.println("Out of Turns");
                     }
                     break;
 
                     //Done    
                 case "1":
                     if (scoreMarked) {
-                        System.out.println("(-Score already marked in this turn.)");
+                        System.out.println("(-Score already marked in this round.)");
                     } else {
                         System.out.print("Select a category (1-6): ");
                         int categoryUpper = scanner.nextInt();
@@ -94,7 +96,7 @@ public class Yahtzee
 
                 case "2": 
                     if (scoreMarked) {
-                        System.out.println("(-Score already marked in this turn.)");
+                        System.out.println("(-Score already marked in this round.)");
                     } else {
                         System.out.println("1 - Score Of A Kind");
                         System.out.println("2 - Score FullHouse");
@@ -172,15 +174,15 @@ public class Yahtzee
                     if(!rolled) {
                         System.out.println("You are required to roll");
                     } else {
-                        turn++;
-                        System.out.println("turn: "+turn);
+                        round++;
+                        System.out.println("Round: "+round);
                         scoreMarked = false;
                         rolled = false;
                     }
                     break;
             }
             
-            if(rollCount >= 3) {
+            if(turn >= 3) {
                 rolled = true;
             }
             
