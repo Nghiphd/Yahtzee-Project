@@ -28,7 +28,7 @@ public class Yahtzee
     private String input;
     private static final int NUM_DICE = 5;
     private static final int NUM_ROUNDS = 13;
-    private int turn;
+    private int round;
     private int score;
     //constructor & rolls all dice for turn one
     public Yahtzee() {
