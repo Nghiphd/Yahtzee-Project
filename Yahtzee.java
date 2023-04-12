@@ -44,6 +44,7 @@ public class Yahtzee
 
     public void play() {
         int turn = 0;
+        int scoreRound = 0;
         boolean rolled = false;
         boolean scoreMarked = false;;
         while(round <= NUM_ROUNDS) {
@@ -91,6 +92,7 @@ public class Yahtzee
                         scanner.nextLine();
                         System.out.println(scoreUpper(categoryUpper));
                         scoreMarked = true;
+                        scoreRound += scoreUpper(categoryUpper);
                     }
                     break;
 
@@ -112,17 +114,21 @@ public class Yahtzee
                                 switch(markScoreKind) {
                                     case 3:
                                         System.out.println("3 of a kind: "+scoreOfAKind(3)); 
+                                        scoreRound += scoreOfAKind(3);
                                         break;
                                     case 4:
                                         System.out.println("4 of a Kind: "+scoreOfAKind(4));
+                                        scoreRound += scoreOfAKind(4);
                                         break;
                                     case 5:
                                         System.out.println("Yahtzee: "+scoreOfAKind(5));
+                                        scoreRound += scoreOfAKind(5);
                                         break;
                                 }
                                 break;
                             case 2:
                                 System.out.println("Full House: "+fullHouse());
+                                scoreRound += fullHouse();
                                 break;
                             case 3:
                                 System.out.print("Please enter 4 or 5: ");
@@ -131,14 +137,17 @@ public class Yahtzee
                                 switch(markScoreStraight) {
                                     case 4:
                                         System.out.println("4 Straight: "+straight(4));
+                                        scoreRound += straight(4);
                                         break;
                                     case 5:
                                         System.out.println("5 Straight: "+straight(5));
+                                        scoreRound += straight(5);
                                         break;
                                 }
                                 break;
                             case 4:
                                 System.out.println("Chance: "+Chance());
+                                scoreRound += Chance();
                                 break;
                         }
 
@@ -178,8 +187,13 @@ public class Yahtzee
                         System.out.println("Round: "+round);
                         scoreMarked = false;
                         rolled = false;
+                        turn  = 0;
                     }
                     break;
+            }
+            
+            if(scoreRound == 0) {
+                scoreMarked = false;
             }
             
             if(turn >= 3) {
