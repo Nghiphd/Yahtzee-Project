@@ -21,7 +21,7 @@ public class Yahtzee
     private int[] scoreOfAKind = new int[3];
     private int fullHouse;
     private int NUM_DIE = 6;
-    private final int[] straight = new int[2];
+    private int[] straight = new int[2];
     private int lowerTotal;
     private int grandTotal;
     private int Chance = 0;
@@ -188,6 +188,7 @@ public class Yahtzee
                         scoreMarked = false;
                         rolled = false;
                         turn  = 0;
+                        scoreRound = 0;
                     }
                     break;
             }
