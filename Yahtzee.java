@@ -283,37 +283,20 @@ public class Yahtzee
         }
     }
 
-    //Returns the number of occurances of a die number
-    public String summerize() {
-        int[] two = new int[]{ val (1), val (2), val (3), val (4), val (5), val (6) };
-
-        return("1-"+two[0]+"; 2-"+two[1]+"; 3-"+two[2]+"; 4-"+two[3]+"; 5-"+two[4]+"; 6-"+two[5]+";");        
-
-    }
-
-    //returns the value of all dice
+    /** Returns dice values
+    *
+    *@return a string of dice values
+    */
     public String toString() {
         return("Dice Values: " + die1.value + " " + die2.value + " " + die3.value + " " + die4.value + " " + die5.value); 
     }
 
-    /** Calculates the occurances of a die number
-     * Can only be called by summerize method
-     */
-    private int val(int val) {
-        int count = 0;
-        int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
-        //iterates over dice array matches with int val and calculates count
-        for(int i : dice) {
-            if(i == val) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /** stores scores for upper section into scoreUpper[]
-     * checks for already indexes of scoreUpper[]
-     * checks for ArrayIndexOutOfBoundsException for 1 > score > 6
+    /** Calculates scores for the upper section
+     * ONly valid inputs are 1-6
+     * 
+     *@param score specifies upper section score to calculate
+     *@return upper score at parameter
+     *@return zero if conditions are not met
      */
     public int scoreUpper(int score) {
         int scoreNum = 0;
@@ -340,11 +323,12 @@ public class Yahtzee
         return scoreNum;
     }
 
-    /** calculates 3,4, & 5 (yahtzee) of a kind
-     * Stores scores into scoreOfAKind[]
-     * checks for already initalized scoreOfAKind indexes
-     * gives bonus yahtzee score ONCE
-     * checks for ArrayIndexOutOfBoundsException for 3 > type > 5
+    /**Calculate scores for "of A kind" categories in Yahtzee
+     *Only inputs 3, 4, and 5 are valid
+     * 
+     *@param type specifies score to calculate
+     *@return the score for specified parameter
+     *@return zero if conditions are not met
      */
     public int scoreOfAKind(int type) {
         int[] counts = new int[6];
@@ -395,8 +379,10 @@ public class Yahtzee
         return 0;
     }
 
-    /**calulates fullHouse in LowerSection
-     * fullHouse requires 3 of the same die number and a pair
+    /** Calculates the score for full house
+     * 
+     *@return score of full house
+     *@return zero if conditions are not met
      */
     public int fullHouse() {
         int[] counts = new int[6];
@@ -419,9 +405,12 @@ public class Yahtzee
         return 0;
     }
 
-    /** Calculates for both large and small straights
-     * stores values in Instance variable straight[]
-     * checks for ArrayIndexOutOfBoundsException 4 > set > 5
+    /** Calculates for scores for both large and small straight
+     * Only allows input of 4 and 5 
+     *
+     *@param set specifies either large or small straight to score
+     *@return score for specified parameter
+     *@return zero if conditions are not met
      */
     public int straight(int set) {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
@@ -467,6 +456,7 @@ public class Yahtzee
      */
     public int Chance() {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
+        //checks if Chance is already initalized
         if(Chance != 0) {
             return Chance;
         }
