@@ -168,11 +168,11 @@ public class Yahtzee
                                         System.out.println("Going back to the previous menu");
                                         break;
                                     case 4:
-                                        System.out.println("4 Straight: "+straight(4));
+                                        System.out.println(getStraight(4));
                                         scoreRound += straight(4);
                                         break;
                                     case 5:
-                                        System.out.println("5 Straight: "+straight(5));
+                                        System.out.println(getStraight(5));
                                         scoreRound += straight(5);
                                         break;
                                 }
@@ -211,7 +211,8 @@ public class Yahtzee
                             System.out.println(getScoreOfAKind(4));
                             System.out.println(getScoreOfAKind(5));
                             System.out.println(getFullHouse());
-                            System.out.println(getStraight());
+                            System.out.println(getStraight(4));
+                            System.out.println(getStraight(5));
                             System.out.println(getChance());
                             break;
                         case 3:
