@@ -1,7 +1,6 @@
 /**
  * Abstracts one six-sided die
  * 
- * Nghi Phan
  * @1.0.0
  */
 public class Die6
@@ -21,4 +20,3 @@ public class Die6
   }
 
 }
-

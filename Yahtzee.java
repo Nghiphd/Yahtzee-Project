@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -31,18 +30,30 @@ public class Yahtzee
     private static final int NUM_ROUNDS = 13;
     private int round;
     private int score;
-    //constructor & rolls all dice for turn one
+
+    /**
+     * Constructor for the Yahtzee class. Initializes the game's
+     * round number to 1, and rolls all dice.
+     */
     public Yahtzee() {
         round = 1;
-        score = 0;
         rollAll();
     }
 
+    /**
+     * The main method for the Yahtzee class.
+     */
     public static void main(String[] args) {
         Yahtzee yahtzee = new Yahtzee();
         yahtzee.play();
     }
 
+    /**
+     * A class representing a game of Yahtzee.
+     * Allows users to roll all dice, reroll some of them, and
+     * then select a category to score their dice into. Scores are
+     * kept track of for both upper section categories and lower section categories.
+     */
     public void play() {
         int turn = 0;
         int scoreRound = 0;
@@ -68,21 +79,21 @@ public class Yahtzee
 
                 case "roll":
                     if(!rolled) {
-                        System.out.println("{0 - back to the previous menu}");
+                        System.out.println("{0 - back to the main menu}");
                         System.out.println("Enter The Die You Wish To Roll Separated By a Space");
-                        String stringToSplit = scanner.nextLine();
+                        String cutToPieces = scanner.nextLine();
 
-                        if(stringToSplit.equals("0")){
-                            System.out.println("Going back to the previous menu");
+                        if(cutToPieces.equals("0")){
+                            System.out.println("Going back to the main menu");
                             break;
                         }
 
-                        String[] split = stringToSplit.split(" ");
-                        int[] array = new int[split.length];
-                        for(int i = 0; i < array.length; i++) {
-                            array[i] = Integer.parseInt(split[i]);
+                        String[] pieces = cutToPieces.split(" ");
+                        int[] dicearray = new int[pieces.length];
+                        for(int i = 0; i < dicearray.length; i++) {
+                            dicearray[i] = Integer.parseInt(pieces[i]);
                         }
-                        roll(array);
+                        roll(dicearray);
                         turn++;
                         System.out.println("Turn:"+turn);
                     } else {
@@ -95,18 +106,18 @@ public class Yahtzee
                     if (scoreMarked) {
                         System.out.println("(-Score already marked in this round.)");
                     } else {
-                        System.out.println("{0 - back to the previous menu}");
+                        System.out.println("{0 - back to the main menu}");
                         System.out.println("Select a category (1-6)");
 
                         int categoryUpper = scanner.nextInt();
 
                         if(categoryUpper == 0) {
-                            System.out.println("Going back to the previous menu");
+                            System.out.println("Going back to the main menu");
                             break;
                         }
 
                         scanner.nextLine();
-                        System.out.println(getScoreUpper(categoryUpper));
+                        System.out.println(scoreUpper(categoryUpper));
                         scoreMarked = true;
                         scoreRound += scoreUpper(categoryUpper);
                     }
@@ -116,7 +127,7 @@ public class Yahtzee
                     if (scoreMarked) {
                         System.out.println("(-Score already marked in this round.)");
                     } else {
-                        System.out.println("{0 - back to the previous menu}");
+                        System.out.println("{0 - back to the main menu}");
                         System.out.println("1 - Score Of A Kind");
                         System.out.println("2 - Score FullHouse");
                         System.out.println("3 - Score Straights");
@@ -125,10 +136,10 @@ public class Yahtzee
                         scanner.nextLine();
                         switch (cateogoryLower) {
                             case 0:
-                                System.out.println("Going back to the previous menu");
+                                System.out.println("Going back to the main menu");
                                 break;
                             case 1:
-                                System.out.println("{0 - back to the previous menu}");
+                                System.out.println("{0 - back to the main menu}");
                                 System.out.println("Please enter 3-5");
 
                                 int markScoreKind = scanner.nextInt();
@@ -136,28 +147,28 @@ public class Yahtzee
 
                                 switch(markScoreKind) {
                                     case 0:
-                                        System.out.println("Going back to the previous menu");
+                                        System.out.println("Going back to the main menu");
                                         break;
                                     case 3:
-                                        System.out.println(getScoreOfAKind(3));
+                                        System.out.println("3 of a Kind: "+scoreOfAKind(3));
                                         scoreRound += scoreOfAKind(3);
                                         break;
                                     case 4:
-                                        System.out.println(getScoreOfAKind(4));
+                                        System.out.println("4 of a kind: "+scoreOfAKind(4));
                                         scoreRound += scoreOfAKind(4);
                                         break;
                                     case 5:
-                                        System.out.println(getScoreOfAKind(5));
+                                        System.out.println("Yahtzee: "+scoreOfAKind(5));
                                         scoreRound += scoreOfAKind(5);
                                         break;
                                 }
                                 break;
                             case 2:
-                                System.out.println("Full House: "+fullHouse());
+                                System.out.println(fullHouse());
                                 scoreRound += fullHouse();
                                 break;
                             case 3:
-                                System.out.println("{0 - back to the previous menu}");
+                                System.out.println("{0 - back to the main menu}");
                                 System.out.print("Please enter 4 or 5: ");
 
                                 int markScoreStraight = scanner.nextInt();
@@ -165,20 +176,20 @@ public class Yahtzee
 
                                 switch(markScoreStraight) {
                                     case 0:
-                                        System.out.println("Going back to the previous menu");
+                                        System.out.println("Going back to the main menu");
                                         break;
                                     case 4:
-                                        System.out.println(getStraight(4));
+                                        System.out.println("small straight: "+straight(4));
                                         scoreRound += straight(4);
                                         break;
                                     case 5:
-                                        System.out.println(getStraight(5));
+                                        System.out.println("large straight: "+straight(5));
                                         scoreRound += straight(5);
                                         break;
                                 }
                                 break;
                             case 4:
-                                System.out.println(getChance());
+                                System.out.println("Chance :"+Chance());
                                 scoreRound += Chance();
                                 break;
                         }
@@ -188,7 +199,7 @@ public class Yahtzee
                     break;
                     //Done    
                 case "3":
-                    System.out.println("{0 - back to the previous menu}");
+                    System.out.println("{0 - back to the main menu}");
                     System.out.println("1 - Upper Scores");
                     System.out.println("2 - Lower Scores");
                     System.out.println("3 - Totals");
@@ -196,7 +207,7 @@ public class Yahtzee
                     scanner.nextLine();
                     switch(type) {
                         case 0:
-                            System.out.println("Going back to the previous menu");
+                            System.out.println("Going back to the main menu");
                             break;
                         case 1:
                             System.out.println(getScoreUpper(1));
@@ -251,7 +262,12 @@ public class Yahtzee
         }
     }
 
-    //rolls all dice
+    /**
+     * Method rolls all dice.
+     * Uses an object array to store the dice objects,
+     * then iterates over the array and calls the roll method
+     * on each object to roll each die.
+     */
     public void rollAll() {
         Die6[] dice = new Die6[]{die1, die2, die3, die4, die5};
         //iterates over object array and calls roll method
@@ -260,7 +276,12 @@ public class Yahtzee
         }
     }
 
-    //Input an array, if value matches switch cases, rolls that die
+    /**
+     * Method rolls the dice specified by an integer array.
+     * 1-indexed, not 0-indexed.
+     * For example, to roll the first, third, and fifth dice, pass an integer array {1, 3, 5}
+     * @param diceToRoll an array of integers representing the indices of the dice to be rolled
+     */
     public void roll(int[] diceToRoll) {
         for (int i : diceToRoll) {
             switch (i) {
@@ -283,26 +304,28 @@ public class Yahtzee
         }
     }
 
-    /** Returns dice values
-    *
-    *@return a string of dice values
-    */
+    /**
+     * Returns a string of the five dice values.
+     * 
+     * @return a string of the five dice values.
+     */
     public String toString() {
         return("Dice Values: " + die1.value + " " + die2.value + " " + die3.value + " " + die4.value + " " + die5.value); 
     }
 
-    /** Calculates scores for the upper section
-     * ONly valid inputs are 1-6
-     * 
-     *@param score specifies upper section score to calculate
-     *@return upper score at parameter
-     *@return zero if conditions are not met
+    /**
+     * Calculates the score for the upper section of the Yahtzee game.
+     * Only accepts scores between 1-6.
+     * Returns the stored value.
+     * Stores the calculated score in the scoreNum and then stores it in the index of the scoreUpper array.
+     * @param score an integer representing the score value to be calculated for the upper section
+     * @return an integer score for the upper section based on the parameter
      */
     public int scoreUpper(int score) {
         int scoreNum = 0;
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
         try{
-            if(score > 6 || score <= 0) {
+            if(score > 6 || score < 1) {
                 throw new ArrayIndexOutOfBoundsException("Please enter 1-6");
             }
             //if there's a stored value in the array stops the calculations
@@ -323,12 +346,12 @@ public class Yahtzee
         return scoreNum;
     }
 
-    /**Calculate scores for "of A kind" categories in Yahtzee
-     *Only inputs 3, 4, and 5 are valid
-     * 
-     *@param type specifies score to calculate
-     *@return the score for specified parameter
-     *@return zero if conditions are not met
+    /**
+     * Method calculates and returns the score of a specified type.
+     * @param type an integer representing the type of score to be calculated, where 3 represents to "3 of a kind",
+     * 4 represents to "4 of a kind", and 5 represenys to "Yahtzee".
+     * @return an integer representing the score of the given type.
+     * @throws ArrayIndexOutOfBoundsException if the type is not within the valid range of 3-5.
      */
     public int scoreOfAKind(int type) {
         int[] counts = new int[6];
@@ -379,10 +402,10 @@ public class Yahtzee
         return 0;
     }
 
-    /** Calculates the score for full house
-     * 
-     *@return score of full house
-     *@return zero if conditions are not met
+    /**
+     * Calculates the score for a Full House category 
+     * Roll 3 dice with the same number, and 2 dice with the same number
+     * @return The score for a Full House, which is 25 if the condition is met, and 0 otherwise.
      */
     public int fullHouse() {
         int[] counts = new int[6];
@@ -405,13 +428,12 @@ public class Yahtzee
         return 0;
     }
 
-    /** Calculates for scores for both large and small straight
-     * Only allows input of 4 and 5 
-     *
-     *@param set specifies either large or small straight to score
-     *@return score for specified parameter
-     *@return zero if conditions are not met
-     */
+    /**
+    * Calculates the score for a straight of four or five consecutive numbers.
+    * @param set the number of dice required for a straight, either 4 or 5
+    * @return the score for a straight of the specified category, or 0 if the dice do not form a straight of that category
+    * @throws ArrayIndexOutOfBoundsException if the set value is not 4 or 5
+    */
     public int straight(int set) {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
         Arrays.sort(dice);
@@ -434,10 +456,10 @@ public class Yahtzee
             }
 
             //checks number of sequences
-            if(notConsecCount < 1) {
+            if(notConsecCount == 1) {
                 straight[0] = 30;
                 return straight[0];
-            } else if(notConsecCount < 2) {
+            } else if(notConsecCount == 0) {
                 straight[1] = 40;
                 return straight[1];
             }
@@ -449,11 +471,6 @@ public class Yahtzee
         return 0;
     }
 
-    /**
-     * Calculates the score for Chance
-     * 
-     * @return the score for Chance
-     */
     public int Chance() {
         int[] dice = new int[]{die1.value,die2.value,die3.value,die4.value,die5.value};
         //checks if Chance is already initalized
@@ -472,7 +489,7 @@ public class Yahtzee
      * @return the string for Chance
      */
     public String getChance() {
-        return("Chance: " + Chance() );
+        return("Chance: " + Chance);
     }
 
     /**
@@ -482,10 +499,15 @@ public class Yahtzee
      * @return the string for scoreOfAKind
      */
     public String getScoreOfAKind(int get) {
-        if(get == 5) {
-            return ("Yahtzee: " + scoreOfAKind[2]);
+        switch(get){
+            case 3:
+                return (get+"score of a kind: "+scoreOfAKind[0]);
+            case 4:
+                return (get+"score of a kind: "+scoreOfAKind[1]);
+            case 5:
+                return ("Yahtzee: "+scoreOfAKind[2]);
         }
-        return(get +" of a kind: " + scoreOfAKind[get-3]);
+        return ("0");
     }
 
     /**
